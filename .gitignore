@@ -1,0 +1,8 @@
+OLD_*
+*.pickle
+*.pyc
+__pycache__
+snapshots
+tensorboard
+samples
+model_*/
