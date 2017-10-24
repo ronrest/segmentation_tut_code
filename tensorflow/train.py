@@ -124,4 +124,4 @@ def model_logits(X, n_classes, alpha, dropout, is_training):
 # Create model and train
 model = SegmentationModel(img_shape=[64,64], n_channels=1, n_classes=4)
 model.create_graph_from_logits_func(model_logits)
-model.train(data, n_epochs=20, alpha=0.0001, batch_size=32, print_every=10)
+model.train(data, n_epochs=20, alpha=0.0001, batch_size=4, print_every=40)

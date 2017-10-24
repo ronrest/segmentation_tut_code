@@ -142,7 +142,7 @@ class SegmentationModel(object):
             self.summary_writer = tf.summary.FileWriter(self.tensorboard_dir, graph=self.graph)
             self.dummy_summary = tf.summary.scalar(name="dummy", tensor=1)
 
-    def train(self, data, n_epochs, alpha=0.001, dropout=0.0, batch_size=32, print_every=10, viz_every=1):
+    def train(self, data, n_epochs, alpha=0.001, dropout=0.0, batch_size=4, print_every=10, viz_every=1):
         """Trains the model, for n_epochs given a dictionary of data"""
         n_samples = len(data["X_train"])               # Num training samples
         n_batches = int(np.ceil(n_samples/batch_size)) # Num batches per epoch
@@ -181,7 +181,7 @@ class SegmentationModel(object):
                 if epoch%viz_every==0:
                     self.visualise_semgmentations(data=data, i=epoch, session=sess)
 
-    def predict(self, X, session, batch_size=32):
+    def predict(self, X, session, batch_size=4):
         """ Make predictions on data `X` within a running session"""
         # Dimensions
         n_samples = X.shape[0]
@@ -198,7 +198,7 @@ class SegmentationModel(object):
 
         return preds
 
-    def evaluate(self, X, Y, session, batch_size=32):
+    def evaluate(self, X, Y, session, batch_size=4):
         """Given input X, and Labels Y, evaluate the accuracy of the model"""
         total_loss = 0
         n_samples = len(Y)
