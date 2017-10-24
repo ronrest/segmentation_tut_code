@@ -41,20 +41,6 @@ def pickle2obj(file):
     return obj
 
 # ==============================================================================
-#                                                                       GET_DATA
-# ==============================================================================
-data = pickle2obj("data64_flat_grey.pickle")
-
-print("DATA SHAPES")
-print("- X_train: ", data["X_train"].shape)
-print("- Y_train: ", data["Y_train"].shape)
-print("- X_valid: ", data["X_valid"].shape)
-print("- Y_valid: ", data["Y_valid"].shape)
-print("- X_test : ", data["X_test"].shape)
-print("- Y_test : ", data["Y_test"].shape)
-
-
-# ==============================================================================
 #                                                                   MODEL_LOGITS
 # ==============================================================================
 def model_logits(X, n_classes, alpha, dropout, is_training):
@@ -121,7 +107,24 @@ def model_logits(X, n_classes, alpha, dropout, is_training):
         logits = deconv(u1, num_outputs=n_classes, kernel_size=4, stride=2, activation_fn=None, normalizer_fn=None, scope="logits")
     return logits
 
-# Create model and train
+
+# ==============================================================================
+#                                                                       GET_DATA
+# ==============================================================================
+data = pickle2obj("data64_flat_grey.pickle")
+
+print("DATA SHAPES")
+print("- X_train: ", data["X_train"].shape)
+print("- Y_train: ", data["Y_train"].shape)
+print("- X_valid: ", data["X_valid"].shape)
+print("- Y_valid: ", data["Y_valid"].shape)
+print("- X_test : ", data["X_test"].shape)
+print("- Y_test : ", data["Y_test"].shape)
+
+
+# ==============================================================================
+#                                                         CREATE MODEL AND TRAIN
+# ==============================================================================
 model = SegmentationModel(img_shape=[64,64], n_channels=1, n_classes=4)
 model.create_graph_from_logits_func(model_logits)
 model.train(data, n_epochs=20, alpha=0.0001, batch_size=4, print_every=40)
